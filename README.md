@@ -169,5 +169,5 @@ La documentación se encuenta en el siguiente enlace: https://docs.google.com/do
 
 Estamos felices de poder ayudarlo:
 
-rodolfojoel.zevallos01@estudiant.upf.edu
+rodolfojoel.zevallos01@estudiant.upf.edu y
 camacho.l@pucp.pe
