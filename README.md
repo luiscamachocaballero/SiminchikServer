@@ -1,89 +1,79 @@
 # Siminchik Server
 
-[![Documentation Status]
-[![Task Status]
+SiminchikServer es un servidor que procesa diversas aplicaciones de la fundación Siminchik, entre las aplicaciones que procesa se encuentra el Automatic Speech Recognition (Qillqaq), Text-To-Speech, Recolector de Prompts (Tarpuriq) y el Recolecetor de Speech Corpus (Huqariq). El servidor puede enviar información a aplicaciones moviles, websites y otras aplicaciones mediante los Endpoints que brinda.
 
-
-SiminchikServer is a server that processes a Speech-To-Text engine (Qillqaq), using a model trained by machine learning techniques, it also store and processes audio files collected (Huqariq). The server can be used to connect to apps, websites or others applications.
 
 **Table of Contents**
 
-- [Prerequisites](#prerequisites)
-- [Installing requisites](#installing-requisites)
-- [Getting the trained model](#getting-the-trained-model)
-- [Using the Quechua model](#using-the-quechua-model)
-  - [Using the language model](#using-the-language-model)
-  - [Using no the language model](#using-no-the-language-model)
-- [Run Qillqaq Server](#run-qillqaq-server)
-- [Recommendations](#recommendations)
-- [Code documentation](#code-documentation)
-- [Contact](#contact)
+- [Prerequisitos](#prerequisitos)
+- [Entorno de configuración](#entorno-de-configuración)
+- [Instalación de requerimientos](#instalación-de-requerimientos)
+- [Qillqaq](#qillqaq)
+  - [Usando modelo de lengauje](#usando-modelo-de-lenguaje)
+  - [Sin modelo de lenguaje](#sin-modelo-de-languaje)
+- [Huqariq](#huqariq)
+- [Tarpuriq](#tarpuriq)
+- [Instalación de Gunicorn](#instalación-de-gunicorn)
+- [Servidor en marcha](#servidor-en-marcha)
+- [Recomendaciones](#recomendaciones)
+- [Documentación](#documentación)
+- [Contacto](#contacto)
 
-## Prerequisites
+## Prerequisitos
 
-* [Python 2.7](https://www.python.org/)
+* [Python 3.6](https://www.python.org/)
 * [SOX](http://sox.sourceforge.net/)
+* [MySQL](https://www.mysql.com)
 
-## Installing requisites
+## Entorno de configuración
 
-You need to update the system:
+Configure un entorno virtual y actívelo:
+
+```bash
+virtualenv siminchik -p python3
+. venv/bin/activate
+```
+
+## Instalación de requerimientos
+
+Primero, se debe actualizar el sistema:
 
 ```bash
 sudo apt-get update
 sudo apt-get upgrade
 ```
 
-Now you need to install pip:
-
-```bash
-sudo apt-get install python-pip
-```
-
-Install the required dependencies using pip:
+Segundo, debe clonar el repositorio
 
 ```bash
 sudo git clone https://github.com/rjzevallos/SiminchikServer
+```
+
+Tercero, instalar los requerimientos usando el archivo requirements.txt
+
+```bash
 cd SiminchikServer
 sudo pip install -r requirements.txt
 ```
 
-Install python-mysql:
-
-```bash
-sudo apt-get install python-mysqldb
-```
-
-Install ffmpeg:
+Cuarto, instalar el parquete de procesamiento de audio ffmpeg
 
 ```bash
 sudo apt-get install ffmpeg
 ```
 
-Now, You have to install mysql, create a database and run .sql script.
-
-Install mysql-server, password "root2":
-
-```bash
-sudo apt-get install mysql-server
-```
-
-Create a database:
+Quinto, creamos una base de datos en mysql
 
 ```bash
 sudo mysql -p
-```
-
-Commands sql:
-
-```bash
 create database app_quechua;
 use app_quechua;
-source ../QillqaqServer/app_quechua.sql;
+source ../db/siminchik.sql;
 ```
 
-## Getting the trained model
+## Qillqaq
 
-You have to download the trained Quechua model for performing speech-to-text, also you can download it (along with other important inference material) from the QillqaqServer releases page. Alternatively, you can run the following command to download the files in your current directory:
+Para poder usar el Automatic Speech Recognition, se debe descargar el modelo entrenado
 
 ```bash
 sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/5-gram.binary
@@ -91,50 +81,93 @@ sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/ou
 sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/quz_trie
 ```
 
-## Using the Quechua model without server
+## Prueba del modelo
 
-There are two ways to use DeepSpeech inference:
+Hay 2 formas de probar el modelo
 
-```bash
-cd QillqaqServer
-```
-
-
-
-### Using the language model
+### Usando el modelo de lenguaje
 
 ```bash
 deepspeech --model output_graph.pbmm --alphabet quz_alphabet.txt --lm 5-gram.binary --trie quz_trie --audio hatispa.wav
 ```
 
-### Using no the language model
+### Sin modelo de lenguaje
 
 ```bash
 deepspeech --model output_graph.pb --alphabet quz_alphabet.txt --audio hatispa.wav
 ```
 
 
-## Run Qillqaq Server
+## Huqariq
+
+La aplicaciones para recolectar speech corpus cuenta actualmente con alrededor de 4,000 prompts del Quechua Chanca y Collao.
+A continuación se muestra la distribución de prompts por cada variedad.
+
+
+| Variedad             | Cantidad             |
+| -------------------- | ---------------------|
+| Chanca               | 1428                 |
+| Collao               | 2966                 |
+| -------------------- | ---------------------|
+| Total                | 4394                 |
+
+
+La cantidad de prompts se recolecta con la aplicación Tarpuriq que se muestra en el apartado siguiente.
+
+
+
+## Tarpuriq
+
+La aplicaciones para prompts que sirven como alimento para Huqariq cuenta actualmente con alrededor de 8,000 frases del Quechua Chanca y Collao.
+A continuación se muestra la distribución de los textos por cada variedad.
+
+
+| Variedad             | Cantidad             |
+| -------------------- | ---------------------|
+| Chanca               | 3887                 |
+| Collao               | 3401                 |
+| -------------------- | ---------------------|
+| Total                | 8288                 |
+
+
+Los textos que sirven como base para la grabaciones de los prompts fueron recolectados de los diccionarios realizados por el Ministerio de Educación de Perú, asi mismo, por otros diccionarios como el "Diccionario Funcional de Quechua-Ingles" de Clodoaldo Soto Ruiz y el libro "Autobiografía" de Gregorio Condori Mamani.
+
+
+## Instalación de Gunicorn
+
+Primero, se debe instalar guniron
 
 ```bash
-cd Qillqaq
-python service.py
+pip install gunicorn
+```
+
+Segundo, verificamos con el siguiente comando para asegurarnos de que el servicio se esté ejecutando
+
+```bash
+gunicorn --workers 3 --bind 0.0.0.0:5000 -m 007 wsgi:app
+```
+
+
+## Servidor en marcha
+
+Solo debemos correr el siguiente comando para lanzar el servidor Siminchik.
+
+```bash
+nohup gunicorn --workers 3 --bind 0.0.0.0:5000 -m 007 wsgi:app
 ```
 
 ## Recommendations
 
-You server has to be ubuntu 16.04 LTS, 16GB RAM, 125GB SSD.
-
-In server.py can change the root where audio files are saving.
+El servidor debe ser ubuntu 16.04 LTS, 16GB RAM, 125GB SSD.
 
 
-## Code documentation
+## Documentación
 
-Documentation (incomplete) for the code can be found here: https://docs.google.com/document/d/1nOP5HCoASVtoykoC3LNMzKZEPyz-cU86YubEAo4COxw/edit
+La documentación se encuenta en el siguiente enlace: https://docs.google.com/document/d/1nOP5HCoASVtoykoC3LNMzKZEPyz-cU86YubEAo4COxw/edit
 
-## Contact
+## Contacto
 
-We are always happy to hear from you:
+Estamos felices de poder ayudarlo:
 
-rjzevallos.salazar@gmail.com 
+rodolfojoel.zevallos01@estudiant.upf.edu
 camacho.l@pucp.pe
