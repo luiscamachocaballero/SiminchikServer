@@ -28,10 +28,10 @@ El módulo de registro es el encargado de aceptar las peticiones de registro de 
 | Dato                 | Descripción                                                                  |
 | -------------------- | ---------------------------------------------------------------------------- |
 | `email`              | Es el correo electronico que brinda para registrase a la aplicación          | 
-| `contraseña`         | Install the pip dependencies on the server's container.                      |
-| `DNI`                | Run your local server in its own docker container.                           |
-| `Nombres`            | Run your local server in its own docker container as a daemon.               |
-| `Apellidos`          | Upgrade pip packages interactively.                                          |
+| `contraseña`         | La contraseña es un string que es cifrada                                    |
+| `DNI`                | Es el documento de identidad de los usuario de nacionalidad Peruana          |
+| `Nombres`            | Nombres completos del usuario                                                |
+| `Apellidos`          | Apellidos completos del usuario                                              |
 | `Departamento`       | Connect to your docker database.                                             |
 | `Provincia`          | Generate a database migration file using alembic, based on your model files. |
 | `Distrito`           | Run the migrations until your database is up to date.                        |
