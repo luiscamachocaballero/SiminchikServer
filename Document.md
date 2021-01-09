@@ -32,11 +32,29 @@ El módulo de registro es el encargado de aceptar las peticiones de registro de 
 | `DNI`                | Es el documento de identidad de los usuario de nacionalidad Peruana          |
 | `Nombres`            | Nombres completos del usuario                                                |
 | `Apellidos`          | Apellidos completos del usuario                                              |
-| `Departamento`       | Connect to your docker database.                                             |
-| `Provincia`          | Generate a database migration file using alembic, based on your model files. |
-| `Distrito`           | Run the migrations until your database is up to date.                        |
-| `Variedad`           | Downgrade your database by one migration.                                    |
+| `Departamento`       | Departamento donde nacio el usuario.                                         |
+| `Provincia`          | Provincia donde nacio el usuario.                                            |
+| `Distrito`           | Distrito donde nacio el usuario                                              |
+| `Variedad`           | Variedad dialectica la cual es nativo hablante                               |
 
+
+#### Validación de email
+
+Para poder registrase en la aplicación el usuario debe colocar un email que exista, ademas no haberse registrado con ese anteriormente. Para asegurar la veracidad del email, se implemento el siguiente código:
+
+`af`
+
+#### Validación del DNI
+
+Con el fin de saber los nombres y apellidos reales del usuario, hemos implementado un método que con el DNI podemos obtener los nombres y apellidos del usuario de la base de datos de RENIEC mediante el siguiente código:
+
+`af`
+
+#### Validación de variedad
+
+Para conocer realmente que variedad de dialecto habla el usuario, se implemento un módulo con el fin que el usuario puede responder algunas preguntas y saber que variedad sabe hablar, cabe mencionar que se realiza esto debido a que la mayoria de personas hablantes nativas no conocer la variedad que habla.
+
+`af`
 
 
 ### Módulo de Audio
