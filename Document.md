@@ -42,20 +42,25 @@ El módulo de registro es el encargado de aceptar las peticiones de registro de 
 
 Para poder registrase en la aplicación el usuario debe colocar un email que exista, ademas no haberse registrado con ese anteriormente. Para asegurar la veracidad del email, se implemento el siguiente código:
 
-`af`
+```bash
+$ flask db init
+```
 
 #### Validación del DNI
 
 Con el fin de saber los nombres y apellidos reales del usuario, hemos implementado un método que con el DNI podemos obtener los nombres y apellidos del usuario de la base de datos de RENIEC mediante el siguiente código:
 
-`af`
+```bash
+$ flask db init
+```
 
 #### Validación de variedad
 
 Para conocer realmente que variedad de dialecto habla el usuario, se implemento un módulo con el fin que el usuario puede responder algunas preguntas y saber que variedad sabe hablar, cabe mencionar que se realiza esto debido a que la mayoria de personas hablantes nativas no conocer la variedad que habla.
 
-`af`
-
+```bash
+$ flask db init
+```
 
 ### Módulo de Audio
 
