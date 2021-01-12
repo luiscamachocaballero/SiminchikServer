@@ -76,9 +76,7 @@ source ../db/siminchik.sql;
 Para poder usar el Automatic Speech Recognition, se debe descargar el modelo entrenado
 
 ```bash
-sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/5-gram.binary
-sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/output_graph.pb
-sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/quz_trie
+
 ```
 
 ## Prueba del modelo
