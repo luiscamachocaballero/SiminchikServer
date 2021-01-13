@@ -132,12 +132,10 @@ La cantidad de prompts se recolecta con la aplicación Tarpuriq que se muestra e
 
 ## Qillqaq
 
-Para poder usar el Automatic Speech Recognition, se debe descargar el modelo entrenado
+Para poder usar el Automatic Speech Recognition, se debe descargar el modelo entrenado disponible en los siguientes enlaces:
 
 ```bash
-sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/5-gram.binary
-sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/output_graph.pb
-sudo wget https://github.com/rjzevallos/QillqaqServer/releases/download/v0.01/quz_trie
+
 ```
 
 ## Prueba del modelo
